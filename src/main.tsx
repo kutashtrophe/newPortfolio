@@ -1,10 +1,8 @@
 import React from "react";
+import AnimatedRoutes from "./AnimatedRoutes.tsx";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import App from "./App.tsx";
+import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./Navbar.tsx";
-import Projects from "./Projects.tsx";
 import "./index.css";
 
 const container = document.getElementById("root");
@@ -15,12 +13,7 @@ if (container !== null) {
     <React.StrictMode>
       <Router>
         <Navbar />
-        <AnimatePresence>
-          <Routes>
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/" element={<App />} />
-          </Routes>
-        </AnimatePresence>
+        <AnimatedRoutes />
       </Router>
     </React.StrictMode>
   );

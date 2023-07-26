@@ -1,21 +1,21 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const pageVariants = {
   initial: {
     opacity: 0,
     scale: 0.99, // add scale property to make the page smaller
-    x: "-100vw", // add x property to make the page move from left to right
+    y: "-100vh", // add x property to make the page move from left to right
   },
   in: {
     opacity: 1,
     scale: 1, // back to normal scale
-    x: 0, // back to normal position
+    y: 0, // back to normal position
   },
   out: {
-    opacity: 0,
+    opacity: 1,
     scale: 1.01, // make the page a bit larger
-    x: "100vw", // move the page from right to left
+    y: "100vh", // move the page from right to left
   },
 };
 
@@ -28,6 +28,7 @@ const pageTransition = {
 const Projects: React.FC = () => {
   return (
     <motion.div
+      key="projects"
       className="min-h-screen bg-gray-100"
       initial="initial"
       animate="in"
