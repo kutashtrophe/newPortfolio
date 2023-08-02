@@ -14,7 +14,7 @@ const Contact: React.FC = () => {
 
   return (
     <button
-      className="text-white flex justify-center hover:text-blue-800 mb-2 px-4"
+      className="text-white flex justify-center hover:text-blue-800 mb-2 px-4 bg-transparent"
       onClick={openGmail}
     >
       Contact

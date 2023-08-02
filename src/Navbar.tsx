@@ -14,23 +14,33 @@ const Navbar: React.FC = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (event: Any) => {
+    const handleClickOutside = (event: any) => {
       if (navbarRef.current && !navbarRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Cleanup the event listener on a component unmount
-      document.removeEventListener("mousedown", handleClickOutside);
+
+    const handleScroll = (event: any) => {
+      if (event.deltaY > 0) {
+        setIsOpen(false);
+      }
     };
-  }, []);
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("wheel", handleScroll);
+
+    return () => {
+      // Cleanup the event listeners on component unmount
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("wheel", handleScroll);
+    };
+  }, [isOpen]);
 
   return (
-    <div ref={navbarRef} className="relative navbar">
+    <div ref={navbarRef} className="relative navbar -top-1">
       <button
         onClick={toggleNavbar}
-        className="absolute top-0 right-0 m-4 z-10 transition-opacity duration-700 ease-in-out"
+        className="absolute right-0 m-4 z-10 transition-opacity bg-transparent duration-700 ease-in-out"
       >
         <AnimatePresence mode="wait">
           {isOpen ? (
@@ -40,7 +50,7 @@ const Navbar: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <XMarkIcon className="h-10 w-10 mx-10 my-5 text-white opacity-100" />
+              <XMarkIcon className="md:h-8 md:w-8 h-6 w-6 md:mx-10 md:my-5 my-2 text-white bg-transparent opacity-100" />
             </motion.div>
           ) : (
             <motion.div
@@ -49,25 +59,28 @@ const Navbar: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <HomeIcon className="h-10 w-10 mx-10 my-5 text-white opacity-100" />
+              <HomeIcon className="md:h-8 md:w-8 w-6 h-6 md:mx-10 md:my-5 my-2 text-white bg-transparent opacity-100" />
             </motion.div>
           )}
         </AnimatePresence>
       </button>
       <div className="absolute left-1/2 top-1/2 transform hover:bg-black transition ease-in-out duration-700 hover:text-white rounded-full -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white flex items-center justify-center z-10">
-        <h1 className="text-blue-500 mt-10  cursor-default text-2xl">SK</h1>
+        <h1 className="text-blue-500 mt-11  cursor-default text-2xl">SK</h1>
       </div>
       <nav
         className={`transition-transform duration-700 ease-in-out transform ${
           isOpen ? "translate-y-0" : "-translate-y-full"
-        } w-full h-24 rounded-md absolute bg-blue-500 text-white py-5`}
+        } w-full h-24 rounded-b-md absolute bg-blue-500 text-white py-5`}
       >
         <div className="text-2xl text-center mb-4 flex justify-center">
           <span className="px-5">Sean</span>
           <span className="px-12"></span>
           <span>Kutash</span>
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center text-sm md:text-base ">
+          {/* <div className="absolute z-50 w-20 h-20">
+            <ReactStar />
+          </div> */}
           <NavLink to="/home">Home</NavLink>
           <NavLink to="/projects">Projects</NavLink>
           <NavLink to="/about">About Me</NavLink>

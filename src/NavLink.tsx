@@ -7,7 +7,7 @@ const NavLink = ({ to, children, ...props }) => {
   return (
     <div
       className={`mb-2 px-4 ${
-        isActive ? "text-blue-800 cursor-default" : "hover:text-blue-800"
+        isActive ? "text-blue-800 cursor-default " : "hover:text-blue-800 "
       }`}
     >
       {isActive ? (
